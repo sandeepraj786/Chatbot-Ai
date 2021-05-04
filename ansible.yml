@@ -5,6 +5,9 @@
     - set_fact: EcsClusterName="Chatbot"
     - name: create task def- from ansible
       ecs_taskdefinition:
+        aws_access_key: AKIA3GLXBYFIMOURC22H
+        aws_secret_key: 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
+        region: us-east-2
         containers:
         - name: wordpress
           cpu: 10
@@ -54,6 +57,9 @@
     
     - name: create ecs service
       ecs_service:
+        aws_access_key: AKIA3GLXBYFIMOURC22H
+        aws_secret_key: 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
+        region: us-east-2
         state: present
         name: wordpress_from_ansible
         cluster: "{{EcsClusterName}}"
