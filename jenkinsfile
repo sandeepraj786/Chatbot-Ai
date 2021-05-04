@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+	    stage('SCM Checkout'){
+             steps{    
+		    git 'https://github.com/sandeepraj786/Chatbot-Ai.git'
+		 }
+	    }
+            stage('Run Ansible playbook') {
+               steps {
+                     sh 'rsync -avh -e "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/Test1234.pem" --exclude .git /var/lib/jenkins/workspace/second-job-pipeline/ ec2-user@172.31.18.57:/Chatbot-Ai'
+                     sh 'ssh -i /var/lib/jenkins/Test123.pem  ec2-user@172.31.18.57 ansible-playbook ansible.yml'
+	             
+         }
+       }
+    }
+}
+	    
