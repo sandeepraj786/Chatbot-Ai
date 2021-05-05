@@ -9,7 +9,7 @@ pipeline {
             stage('Run Ansible playbook') {
                steps {
                      sh 'rsync -avh -e "ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/Test1234.pem" --exclude .git /var/lib/jenkins/workspace/Chatbot-Ai/ ec2-user@172.31.18.57:/Chatbot-Ai'
-                     sh 'ssh -i /var/lib/jenkins/Test1234.pem  ec2-user@172.31.18.57 ansible-playbook ansible.yml'
+                     sh 'ssh -i /var/lib/jenkins/Test1234.pem  ec2-user@172.31.18.57 /var/lib/jenkins/workspace/Chatbot-Ai ansible-playbook ansible.yml'
 	             
          }
        }
