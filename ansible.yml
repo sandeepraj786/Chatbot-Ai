@@ -7,10 +7,10 @@
       ecs_taskdefinition:
         region: us-east-2
         containers:
-        - name: wordpress
+        - name: Web-server
           cpu: 10
           essential: true
-          image: "wordpress"
+          image: "nginx"
           memory: 500
           links:
           - mysql         
