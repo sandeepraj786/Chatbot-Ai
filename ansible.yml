@@ -10,7 +10,7 @@
         - name: Web-server
           cpu: 10
           essential: true
-          image: "nginx"
+          image: "wordpress"
           memory: 500
           links:
           - mysql         
