@@ -86,9 +86,9 @@
           - targetGroupArn: arn:aws:elasticloadbalancing:us-east-2:769585693008:targetgroup/chatbot-tg/bbca242eb2d78568
             containerName: Web-server
             containerPort: 80
-        network_configuration:
-          subnets:
-          - subnet-7ec6d504
-          security_groups:
-          - sg-002d0a85d94299b69
-          - chatbot-sg
+        #network_configuration:
+         # subnets:
+          #- subnet-7ec6d504
+          #security_groups:
+          #- sg-002d0a85d94299b69
+          #- chatbot-sg
