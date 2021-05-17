@@ -79,7 +79,8 @@
       ecs_service:
         state: present
         name: wordpress_from_ansible
-        cluster: Chatbot
+        cluster: cluster: "{{EcsClusterName}}"
+        task_definition: "{{  task_output.taskdefinition[\"family\"]   }}:{{ task_output.taskdefinition[\"revision\"] }}"
         desired_count: 0
         load_balancers:
           - targetGroupArn: arn:aws:elasticloadbalancing:us-east-2:769585693008:targetgroup/chatbot-tg/bbca242eb2d78568
