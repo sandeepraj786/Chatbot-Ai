@@ -78,7 +78,7 @@
     - name: create ECS service on VPC network
       ecs_service:
         state: present
-        name: wordpress_from_ansible
+        name: wordpress_from_ansible_lb
         cluster: "{{EcsClusterName}}"
         task_definition: "{{  task_output.taskdefinition[\"family\"]   }}:{{ task_output.taskdefinition[\"revision\"] }}"
         desired_count: 0
