@@ -24,8 +24,8 @@
               - containerPort: '{{ container_port }}'
                 hostPort: 0
                 protocol: 'tcp'
-       register: td
-     - debug: msg = "{{td.stdout}}"
+      register: td
+    - debug: msg = "{{td.stdout}}"
     # Create a service using the task definition to be run under our ECS cluster
     - name: create ecs service
       tags: create_ecs_svc
@@ -41,8 +41,8 @@
           deployment_configuration:
             minimum_healthy_percent: 100
             maximum_percent: 200
-       register: ecs_service
-     - debug: msg = "{{ecs_service.stdout}}" 
+      register: ecs_service
+    - debug: msg = "{{ecs_service.stdout}}" 
     # Create target tracking scaling policy for ECS Service
     - name: scaling_policy
       aws_application_scaling_policy:
