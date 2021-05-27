@@ -3,8 +3,8 @@
   connection: local
   gather_facts: False
   vars_files:
-    - "../vars/ecs_variable.yml"
-    - "../vars/variable.yml"
+    - "/vars/ecs_variable.yml"
+    - "/vars/variable.yml"
   tasks:
     #Create a Task definition for our container
     - name: Create a task definition for ecs
