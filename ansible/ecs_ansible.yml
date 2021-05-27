@@ -10,7 +10,7 @@
     - name: Create a task definition for ecs
       tags: create_td
       ecs_taskdefinition:
-        state: present
+        region: us-east-2
         family: '{{ app_name }}'
         network_mode: bridge
         force_create: true
