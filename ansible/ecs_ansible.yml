@@ -2,3 +2,60 @@
   hosts: localhost
   connection: local
   gather_facts: False
+  vars_files:
+    - ../vars/ecs_variable.yml
+    - ../vars/variable.yml
+  tasks:
+    #Create a Task definition for our container
+    - name: Create a task definition for ecs
+      tags: create_td
+      ecs_taskdefinition:
+        state: present
+        family: '{{ app_name }}'
+        network_mode: bridge
+        force_create: true
+        execution_role_arn: arn:aws:iam::769585693008:role/ecs_active_ai_role
+        containers:
+          - name: '{{ app_name }}-container'
+            essential: true
+            image: '{{ app_image }}'
+            memory: 400
+            portMappings:
+              - containerPort: '{{ container_port }}'
+                hostPort: 0
+                protocol: 'tcp'
+       register: td
+     - debug: msg = "{{td.stdout}}"
+    # Create a service using the task definition to be run under our ECS cluster
+    - name: create ecs service
+      tags: create_ecs_svc
+      ecs_service:
+          state: present
+          name: '{{ app_name }}'
+          launch_type: EC2
+          force_new_deployment: yes
+          cluster: '{{ cluster_name }}'
+          task_definition: '{{ td.taskdefinition.family }}:{{ td.taskdefinition.revision }}'
+          desired_count: 2
+          role: ecs_active_ai_role
+          deployment_configuration:
+            minimum_healthy_percent: 100
+            maximum_percent: 200
+       register: ecs_service
+     - debug: msg = "{{ecs_service.stdout}}" 
+    # Create target tracking scaling policy for ECS Service
+    - name: scaling_policy
+      aws_application_scaling_policy:
+        state: present
+        policy_name: retail_scaling_policy
+        policy_type: TargetTrackingScaling
+        minimum_tasks: 2
+        maximum_tasks: 4
+        target_tracking_scaling_policy_configuration:
+          TargetValue: 60
+          PredefinedMetricSpecification:
+            PredefinedMetricType: ECSServiceAverageCPUUtilization
+          ScaleOutCooldown: 10
+          ScaleInCooldown: 10  
+        
+       
