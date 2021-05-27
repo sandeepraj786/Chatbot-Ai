@@ -8,7 +8,7 @@ pipeline {
 	    }
             stage('Run Ansible playbook') {
                steps {
-                     sh 'ansible-playbook /Chatbot-Ai/ansible/ecs_ansible.yml'
+                     sh 'ansible-playbook Chatbot-Ai/ansible/ecs_ansible.yml'
 	             
          }
        }
