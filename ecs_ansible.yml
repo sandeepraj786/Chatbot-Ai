@@ -1,1 +1,4 @@
-
+- name: Create AWS resources
+  hosts: localhost
+  connection: local
+  gather_facts: False
