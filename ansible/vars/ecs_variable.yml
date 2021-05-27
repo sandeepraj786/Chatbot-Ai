@@ -1,1 +1,7 @@
 #Container-Image
+app_name: chatbot-Ai
+app_image: 769585693008.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+container_port: 8000
+#Auto-scaling properties
+scale_in_threshold: 14.0
+scale_out_threshold: 50.0
